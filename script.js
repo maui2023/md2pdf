@@ -1,4 +1,3 @@
-// script.js
 document.addEventListener('DOMContentLoaded', () => {
     const markdownInput = document.getElementById('markdown-input');
     const markdownPreview = document.getElementById('markdown-preview');
@@ -6,16 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const defaultMarkdown = '# Markdown Live Preview\n\n- Edit markdown here\n- Preview appears immediately\n\n**Enjoy!**';
 
-    function updatePreview() {
-        markdownPreview.innerHTML = marked.parse(markdownInput.value);
-    }
-
-    markdownInput.value = defaultMarkdown;
+    // Load saved content from localStorage if available
+    const savedContent = localStorage.getItem('markdownData');
+    markdownInput.value = savedContent || defaultMarkdown;
     updatePreview();
 
-    markdownInput.addEventListener('input', updatePreview);
+    markdownInput.addEventListener('input', () => {
+        updatePreview();
+        localStorage.setItem('markdownData', markdownInput.value); // Save to localStorage
+    });
+
+    function updatePreview() {
+        const content = markdownInput.value.replace(/\[Pages Break\]/g, `
+<div style="page-break-after: always; visibility: hidden;">\\pagebreak</div>`);
+        markdownPreview.innerHTML = marked.parse(content);
+    }
 
     printBtn.addEventListener('click', () => {
+        // Save input before print in case of reload
+        localStorage.setItem('markdownData', markdownInput.value);
+
         const originalContent = document.body.innerHTML;
         const printContent = markdownPreview.innerHTML;
 
@@ -34,6 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.print();
         document.body.innerHTML = originalContent;
-        window.location.reload();  // restore the original state after printing
+        window.location.reload(); // OK now – content will reload from localStorage
     });
 });
