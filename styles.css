@@ -1,0 +1,121 @@
+/* Basic styles (for editing and live preview) */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 50px);
+}
+
+#markdown-input, #markdown-preview {
+    width: 50%;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+#markdown-input {
+    border-right: 1px solid #ddd;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#markdown-preview {
+    background-color: #fdfdfd;
+}
+
+/* Button styling */
+#print-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#print-btn:hover {
+    background-color: #0069d9;
+}
+
+/* Markdown rendered styles */
+h1, h2, h3, h4, h5, h6 {
+    color: #222;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+pre, code {
+    background-color: #f5f5f5;
+    padding: 5px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+}
+
+blockquote {
+    border-left: 4px solid #ddd;
+    padding-left: 15px;
+    color: #666;
+}
+
+/* Print-specific CSS to match exactly desired look */
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        background-color: white !important;
+        padding: 20px !important;
+    }
+
+    .container, #markdown-input, #print-btn {
+        display: none !important;
+    }
+
+    #markdown-preview {
+        display: block !important;
+        width: 100% !important;
+        background-color: white !important;
+        color: black !important;
+    }
+
+    table, th, td {
+        border: 1px solid #000 !important;
+        border-collapse: collapse !important;
+        padding: 10px !important;
+    }
+
+    pre, code {
+        background-color: #f5f5f5 !important;
+    }
+
+    blockquote {
+        border-left: 4px solid #aaa !important;
+        color: #555 !important;
+    }
+
+    ul, ol {
+        padding-left: 20px !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #000 !important;
+    }
+}
